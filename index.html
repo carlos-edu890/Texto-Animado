@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      display: flex;
+      background-color: black;
+      text-align: center;
+      justify-content: center;
+    }
+
+    h1{
+      color: white;
+    }
+
+    span{
+      color:#BD53ED;
+      position: relative;
+    }
+
+    span::before{
+      content: "";
+      height: 30px;
+      right: -8px;
+      width: 2px;
+      background: #BD53ED;
+      position: absolute;
+      transform: translate(-45%);
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink{
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Coding is <span id="palavra"></span></h1>
+  </div>
+  
+  <script>
+    let palavras = ["Love", "like Art", "the Future", "Everything", "Feio"];
+    let pala = document.querySelector('#palavra');
+
+    let palavraIndex = 0;
+    let charIndex = 0;
+    let boleano = true;
+
+    function mostra(){
+      let correrPalavra = palavras[palavraIndex];
+      let correrChar = correrPalavra.substring(0, charIndex); // o fim é exclusivo
+      pala.innerHTML = correrChar;
+
+      if(boleano && charIndex < correrPalavra.length){
+        charIndex++;
+        setTimeout(mostra, 100);
+      }else if(!boleano && charIndex > 0){
+        charIndex--;
+        setTimeout(mostra, 100);
+      }else{
+        boleano = false
+        if(charIndex == 0){
+          boleano = true;
+          palavraIndex++;
+          if(palavraIndex == 5){
+            palavraIndex = 0;
+          }
+        }
+        setTimeout(mostra, 1000);
+      }
+
+      console.log(palavraIndex, charIndex, correrChar);
+    }
+
+    mostra();
+    
+  </script>
+
+</body>
+</html>
